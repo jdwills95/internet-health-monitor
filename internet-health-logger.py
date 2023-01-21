@@ -18,6 +18,7 @@ def ping(ip_adr):
 
 # Run and log speed test up and down
 def run_speed_test():
+    st.get_best_server()
     down_speed = st.download()
     up_speed = st.upload()
     log = "speed_down: {}, speed_up: {}" \
