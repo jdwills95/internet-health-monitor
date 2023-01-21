@@ -1,0 +1,5 @@
+# ignore ALL files in ANY directory named logs
+logs/
+
+# ignore ALL files in ANY directory named .idea
+.idea/  
