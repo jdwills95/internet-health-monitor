@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import sleep
 from get_internet_health_database import get_database
 import subprocess
@@ -11,6 +11,7 @@ collection_speed = dbname["speed_data"]
 st = speedtest.Speedtest(secure=True)
 ips = ["1.1.1.1", "8.8.8.8", "8.8.4.4"]
 interval = 300
+delete_after_days = 365
 
 
 # Ping Address and log response
@@ -21,7 +22,7 @@ def ping(ip_adr):
     sent = str(response.stdout).split("Sent = ", 1)[1].split(",", 1)[0]
     latency = str(response.stdout).split("Average = ")[1].split("\\r\\n", 1)[0]
     ping_data = {
-        "date_time": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
+        "date_time": datetime.utcnow(),
         "ip": ip_adr,
         "packets_received": received,
         "packets_sent": sent,
@@ -36,11 +37,16 @@ def run_speed_test():
     speed_down = st.download()
     speed_up = st.upload()
     speed_data = {
-        "date_time": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
+        "date_time": datetime.utcnow(),
         "speed_down": speed_down,
         "speed_up": speed_up
     }
     collection_speed.insert_one(speed_data)
+
+
+def purge_old_data():
+    dlt_pass_date = datetime.utcnow() - timedelta(days=delete_after_days)
+    collection_speed.delete_many({'date_time': {'$lte': dlt_pass_date}})
 
 
 while True:
@@ -51,4 +57,7 @@ while True:
     mes = "{}: Running Speed Test".format(datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'))
     print(mes, end='\n')
     run_speed_test()
+    mes = "{}: Purging Old Data".format(datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'))
+    print(mes, end='\n')
+    purge_old_data()
     sleep(interval)
