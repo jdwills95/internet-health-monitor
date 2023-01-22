@@ -2,4 +2,7 @@
 logs/
 
 # ignore ALL files in ANY directory named .idea
-.idea/  
+.idea/
+
+# ignore ALL files in ANY directory named __pycache__/
+__pycache__/
