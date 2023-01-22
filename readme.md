@@ -1,2 +1,3 @@
 # Internet Health Logger
-Simply run the python script and check the logs folder
+Start mongodb instance locally where the script is located.
+Run the internet_health_logger.py script.
