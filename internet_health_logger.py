@@ -27,7 +27,7 @@ def ping(ip_adr):
         "packets_sent": sent,
         "latency": latency
     }
-    collection_ping.insert(ping_data)
+    collection_ping.insert_one(ping_data)
 
 
 # Run and log speed test up and down
@@ -40,7 +40,7 @@ def run_speed_test():
         "speed_down": speed_down,
         "speed_up": speed_up
     }
-    collection_speed.insert(speed_data)
+    collection_speed.insert_one(speed_data)
 
 
 while True:
