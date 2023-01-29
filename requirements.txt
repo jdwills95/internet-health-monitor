@@ -1,0 +1,7 @@
+uvicorn~=0.20.0
+datetime~=5.0
+
+fastapi~=0.89.1
+pydantic~=1.10.4
+pymongo~=4.3.3
+speedtest-cli~=2.1.3
