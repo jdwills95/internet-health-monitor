@@ -6,10 +6,12 @@ from fastapi import FastAPI
 from datetime import datetime
 from get_internet_health_database import get_database
 from pydantic import BaseModel
-import internet_health_logger
+from fastapi.middleware.cors import CORSMiddleware
+
 
 db_adr = os.environ['DB_ADDRESS']
 db_port = os.environ['DB_PORT']
+ui_origin = os.environ['UI_ORIGIN']
 
 connection_string = "mongodb://{}:{}".format(db_adr, db_port)
 
@@ -33,6 +35,16 @@ class Speed(BaseModel):
 
 
 app = FastAPI()
+
+origins = [ui_origin]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def __aiter__(self):
