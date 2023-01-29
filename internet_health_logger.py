@@ -1,3 +1,5 @@
+# main.py
+
 import os
 from datetime import datetime, timedelta
 from time import sleep
@@ -64,3 +66,8 @@ def start_collection():
         print(mes, end='\n')
         purge_old_data()
         sleep(interval)
+
+
+if __name__ == "__main__":
+    print("Starting Data Collection", end='\n')
+    start_collection()
