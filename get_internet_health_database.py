@@ -1,9 +1,7 @@
 from pymongo import MongoClient
 
 
-def get_database():
-    # Connecting to local mongodb
-    connection_string = "mongodb://localhost:27017"
+def get_database(connection_string):
     client = MongoClient(connection_string)
 
     # Creates the database for storing internet health data

@@ -1,12 +1,19 @@
 # main.py
 
+import os
 import uvicorn
 from fastapi import FastAPI
 from datetime import datetime
 from get_internet_health_database import get_database
 from pydantic import BaseModel
+import internet_health_logger
 
-dbname = get_database()
+db_adr = os.environ['DB_ADDRESS']
+db_port = os.environ['DB_PORT']
+
+connection_string = "mongodb://{}:{}".format(db_adr, db_port)
+
+dbname = get_database(connection_string)
 collection_ping = dbname["ping_data"]
 collection_speed = dbname["speed_data"]
 
@@ -55,4 +62,7 @@ def root(from_date: str, to_date: str):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    print("Starting Data Collection", end='\n')
+    internet_health_logger.start_collection()
+    # print("Starting API", end='\n')
+    # uvicorn.run(app, host="0.0.0.0", port=8000)
