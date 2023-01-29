@@ -6,10 +6,10 @@ USERNAME=darthmanatee
 IMAGE=internethealthlogger
 
 # ensure we're up to date
-git pull
+# git pull
 
 # bump version
-docker run --rm -v "$PWD":/app darthmanatee/bump patch
+# docker run --rm -v "27S!KD!6iYHcZJEiQ9JHmxY7VeWM":/app darthmanatee/internethealthlogger patch
 version=`cat VERSION`
 echo "version: $version"
 
