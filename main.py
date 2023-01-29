@@ -62,5 +62,4 @@ def root(from_date: str, to_date: str):
 
 
 if __name__ == "__main__":
-    print("Starting API", end='\n')
     uvicorn.run(app, host="0.0.0.0", port=8000)

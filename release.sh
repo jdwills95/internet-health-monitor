@@ -9,7 +9,7 @@ IMAGE=internethealthlogger
 # git pull
 
 # bump version
-# docker run --rm -v "27S!KD!6iYHcZJEiQ9JHmxY7VeWM":/app darthmanatee/internethealthlogger patch
+# docker run --rm -v "$PWD":/app darthmanatee/internethealthlogger patch
 version=`cat VERSION`
 echo "version: $version"
 
@@ -17,11 +17,11 @@ echo "version: $version"
 ./build.sh
 
 # tag it
-git add -A
-git commit -m "version $version"
-git tag -a "$version" -m "version $version"
-git push
-git push --tags
+# git add -A
+# git commit -m "version $version"
+# git tag -a "$version" -m "version $version"
+# git push
+# git push --tags
 
 docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$version
 
