@@ -59,7 +59,7 @@ def root(from_date: str, to_date: str):
     pings = []
     for ping in ping_data:
         pings.append(Ping(**ping))
-    return pings
+    return sorted(pings, key=lambda p: p.date_time, reverse=True)
 
 
 @app.get("/speedtest/{from_date}/{to_date}")
@@ -70,7 +70,7 @@ def root(from_date: str, to_date: str):
     speeds = []
     for speed in speed_data:
         speeds.append(Speed(**speed))
-    return speeds
+    return sorted(speeds, key=lambda s: s.date_time, reverse=True)
 
 
 if __name__ == "__main__":
